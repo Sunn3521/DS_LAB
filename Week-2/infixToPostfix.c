@@ -36,6 +36,7 @@ char peek()
 	}
 	return -1;
 }
+
 // Function to define operator precedence
 int precedence(char op)
 {
@@ -46,14 +47,16 @@ int precedence(char op)
 		case '%': return 2;
 		case '+':
 		case '-': return 1;
-		default: return 0;	
+		default: return 0;
 	}
 }
+
 //Function to check if character is operator
 int isOperator(char c)
 {
 	return(c=='+'||c=='-'||c=='*'||c=='/'||c=='%');
 }
+
 //Infix to Postfix conversion
 void infixToPostfix(char infix[], char postfix[])
 {
@@ -67,24 +70,24 @@ void infixToPostfix(char infix[], char postfix[])
 		{
 			postfix[k++]=symbol;
 		}
-		//left pareenthesis ? push to stack
+		//left parenthesis ? push to stack
 		else if(symbol=='(')
 		{
 			push(symbol);
 		}
-		//Right pareenthesis ? pop until '('
+		//Right parenthesis ? pop until '('
 		else if(symbol==')')
 		{
 			while(top != -1 && peek() != '(')
 			{
 				postfix[k++]=pop();
 			}
-			pop();//remove'('
+			pop(); // remove '('
 		}
 		//operator
 		else if(isOperator(symbol))
 		{
-			while(top != -1 && precedence(peek)) >= precedence(symbol))
+			while(top != -1 && precedence(peek()) >= precedence(symbol))
 			{
 				postfix[k++]=pop();
 			}
@@ -93,10 +96,11 @@ void infixToPostfix(char infix[], char postfix[])
 	}
 	while(top != -1)
 	{
-		postfix[k]=pop();
+		postfix[k++]=pop();
 	}
-	postfix[k]='\0';//null trerminate string
+	postfix[k] = '\0'; // null terminate string
 }
+
 int main()
 {
 	char infix[MAX],postfix[MAX];
