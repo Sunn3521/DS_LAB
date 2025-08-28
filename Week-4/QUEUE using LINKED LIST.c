@@ -1,29 +1,23 @@
 #include <stdio.h>
 #include <conio.h>
 #include <malloc.h>
-
 struct node {
 	int data;
 	struct node *next;
 };
-
 struct queue {
 	struct node *front;
 	struct node *rear;
 };
-
 struct queue *q = NULL;
-
 void create_queue(struct queue **);
 struct queue *insert(struct queue *, int);
 struct queue *delete_element(struct queue *);
 struct queue *display(struct queue *);
 int peek(struct queue *);
-
 int main() {
 	int val, option;
 	create_queue(&q);
-
 	do {
 		printf("\n*****MAIN MENU*****");
 		printf("\n 1.INSERT");
@@ -52,17 +46,14 @@ int main() {
 				break;
 		}
 	} while (option != 5);
-
 	getch();
 	return 0;
 }
-
 void create_queue(struct queue **q) {
 	*q = (struct queue *)malloc(sizeof(struct queue));
 	(*q)->rear = NULL;
 	(*q)->front = NULL;
 }
-
 struct queue *insert(struct queue *q, int val) {
 	struct node *ptr;
 	ptr = (struct node *)malloc(sizeof(struct node));
@@ -77,7 +68,6 @@ struct queue *insert(struct queue *q, int val) {
 	}
 	return q;
 }
-
 struct queue *display(struct queue *q) {
 	struct node *ptr;
 	ptr = q->front;
@@ -92,7 +82,6 @@ struct queue *display(struct queue *q) {
 	}
 	return q;
 }
-
 struct queue *delete_element(struct queue *q) {
 	struct node *ptr;
 	ptr = q->front;
@@ -107,7 +96,6 @@ struct queue *delete_element(struct queue *q) {
 	}
 	return q;
 }
-
 int peek(struct queue *q) {
 	if (q->front == NULL) {
 		printf("\n QUEUE IS EMPTY");
