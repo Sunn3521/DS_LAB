@@ -1,101 +1,73 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct stack
+struct Node
 {
 	int data;
-	struct stack *next;	
+	struct Node* left;
+	struct Node* right;
 };
 
-struct stack *top = NULL;
-
-struct stack* push(struct stack *top, int val)
+struct Node* createNode(int value)
 {
-	struct stack *ptr = malloc(sizeof(struct stack));
-	ptr->data = val;
-	ptr->next = top;
-	top = ptr;
-	return top;
+	struct Node* newNode= (struct Node*)malloc(sizeof(struct Node));
+	newNode->data=value;
+	newNode->left=NULL;
+	newNode->right=NULL;
+	return newNode;
 }
 
-struct stack *pop(struct stack *top)
+// Inorder Traversal (left ? right ? Right)
+void inorder(struct Node* root)
 {
-	struct stack *ptr = top;
-	if (top == NULL)
+	if (root != NULL)
 	{
-		printf("\nSTACK UNDERFLOW");
+		inorder(root->left);
+		printf("%d", root->data);
+		inorder(root->right);
 	}
-	else
-	{
-		top = top->next;
-		printf("\nTHE VALUE BEING DELETED IS: %d", ptr->data);
-		free(ptr);
-	}
-	return top;
 }
-
-int peek(struct stack *top)
+void preorder(struct Node* root)
 {
-	return (top == NULL) ? -1 : top->data;
+	if(root!= NULL)
+	{
+		printf("%d ", root->data);
+		preorder(root->left);
+		preorder(root->right);
+	}
 }
-
-struct stack* display(struct stack *top)
+void postorder(struct Node* root)
 {
-	struct stack *ptr = top;
-	if (top == NULL)
+	if(root!=NULL)
 	{
-		printf("\nSTACK IS EMPTY");
+	
+		postorder(root->left);
+		postorder(root->right);
+		printf("%d",root->data);
 	}
-	else
-	{
-		while (ptr != NULL)
-		{
-			printf("\n%d", ptr->data);
-			ptr = ptr->next;
-		}
-	}
-	return top;
 }
-
 int main()
 {
-	int val, option;
-	do
-	{
-		printf("\n******* MAIN MENU *******");
-		printf("\n1. PUSH");
-		printf("\n2. POP");
-		printf("\n3. PEEK");
-		printf("\n4. DISPLAY");
-		printf("\n5. EXIT");
-		printf("\nEnter your option: ");
-		scanf("%d", &option);
-
-		switch (option)
-		{
-			case 1:
-				printf("\nEnter the number to be pushed on stack: ");
-				scanf("%d", &val);
-				top = push(top, val);
-				break;
-
-			case 2:
-				top = pop(top);
-				break;
-
-			case 3:
-				val = peek(top);
-				if (val != -1)
-					printf("\nThe value at the top of stack is: %d", val);
-				else
-					printf("\nSTACK IS EMPTY");
-				break;
-
-			case 4:
-				top = display(top);
-				break;
-		}
-	} while (option != 5);
-
+	struct Node* root=createNode(4);
+	root->left=createNode(2);
+	root->right=createNode(6);
+	root->left->left=createNode(1);
+	root->left->right=createNode(3);
+	root->right->left=createNode(5);
+	root->right->right=createNode(7);
+	
+	printf("Inorder traversal: ");
+	inorder(root);
+	printf("\n");
+	
+	printf("Preorder Traversal: ");
+	preorder(root);
+	printf("\n");
+	
+	printf("Postorder Traversal: ");
+	postorder(root);
+	printf("\n");
+	
 	return 0;
 }
+
