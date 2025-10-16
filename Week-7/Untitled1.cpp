@@ -101,9 +101,9 @@ void create_tree(struct node *tree){
 struct node *insertElement(struct node *tree, int val){
 	struct node *ptr, *nodeptr, *parentptr;
 	ptr = (struct node*)malloc(sizeof(struct node));
-	ptr–>data = val;
-	ptr–>left = NULL;
-	ptr–>right = NULL;
+	ptrâ€“>data = val;
+	ptrâ€“>left = NULL;
+	ptrâ€“>right = NULL;
 	if(tree==NULL){
 		tree=ptr;
 		tree->left=NULL;
@@ -129,21 +129,21 @@ struct node *insertElement(struct node *tree, int val){
 void preorderTraversal(struct node *tree){
 	if(tree!=NULL){
 		printf("%d\t",tree->data);
-		preorderTraversal(tree–>left);
-		preorderTraversal(tree–>right);
+		preorderTraversal(treeâ€“>left);
+		preorderTraversal(treeâ€“>right);
 	}
 }
 void inorderTraversal(struct node *tree){
 	if(tree!=NULL){
-		inorderTraversal(tree–>left);
+		inorderTraversal(treeâ€“>left);
 		printf("%d\t",tree->data);
-		inorderTraversal(tree–>right);
+		inorderTraversal(treeâ€“>right);
 	}
 }
 void postorderTraversal(struct node *tree){
 	if(tree!=NULL){
-		postorderTraversal(tree–>left);
-		postorderTraversal(tree–>right);
+		postorderTraversal(treeâ€“>left);
+		postorderTraversal(treeâ€“>right);
 		printf("%d\t",tree->data);
 	}
 }
@@ -163,41 +163,41 @@ struct node *findLargestElement(struct node *tree){
 }
 struct node *deleteElement(struct node *tree, int val){
 	struct node *cur, *parent, *suc, *psuc, *ptr;
-	if(tree–>left==NULL){
+	if(treeâ€“>left==NULL){
 		printf("\n The tree is empty ");
 		return(tree);
 	}
 	parent = tree;
-	cur = tree–>left;
-	while(cur!=NULL && val!= cur–>data){
+	cur = treeâ€“>left;
+	while(cur!=NULL && val!= curâ€“>data){
 		parent = cur;
-		cur = (val<cur–>data)? cur–>left:cur–>right;
+		cur = (val<curâ€“>data)? curâ€“>left:curâ€“>right;
 	}
 	if(cur == NULL){
 		printf("\n The value to be deleted is not present in the tree");
 		return(tree);
 	}
-	if(cur–>left == NULL)
-	ptr = cur–>right;
-	else if(cur–>right == NULL)
+	if(curâ€“>left == NULL)
+	ptr = curâ€“>right;
+	else if(curâ€“>right == NULL)
 		ptr=cur->left;
 	else{
-		// Find the in–order successor and its parent
+		// Find the inâ€“order successor and its parent
 		psuc = cur;
-		cur = cur–>left;
-		while(suc–>left!=NULL){
+		cur = curâ€“>left;
+		while(sucâ€“>left!=NULL){
 			psuc = suc;
-			suc = suc–>left;
+			suc = sucâ€“>left;
 		}
 		if(cur==psuc){\
 		// Situation 1
-		suc–>left = cur–>right;
+		sucâ€“>left = curâ€“>right;
 		}
 		else{
 			// Situation 2
-			suc–>left = cur–>left;
-			psuc–>left = suc–>right;
-			suc–>right = cur–>right;
+			sucâ€“>left = curâ€“>left;
+			psucâ€“>left = sucâ€“>right;
+			sucâ€“>right = curâ€“>right;
 		}
 		ptr = suc;
 	}
@@ -213,7 +213,7 @@ int totalNodes(struct node *tree){
 	if(tree==NULL)
 		return 0;
 	else
-		return(totalNodes(tree–>left) + totalNodes(tree–>right) + 1);
+		return(totalNodes(treeâ€“>left) + totalNodes(treeâ€“>right) + 1);
 }
 int totalExternalNodes(struct node *tree){
 	if(tree==NULL)
@@ -221,13 +221,13 @@ int totalExternalNodes(struct node *tree){
 	else if((tree->left==NULL)&&(tree->right==NULL))
 		return 1;
 	else
-		return(totalExternalNodes(tree–>left) + totalExternalNodes(tree–>right));
+		return(totalExternalNodes(treeâ€“>left) + totalExternalNodes(treeâ€“>right));
 }
 int totalInternalNodes(struct node *tree){
 	if((tree==NULL)||(tree->left==NULL)&&(tree->right==NULL))
 		return 0;
 	else
-		return(totalInternalNodes(tree–>left) + totalInternalNodes(tree–>right)+1);
+		return(totalInternalNodes(treeâ€“>left) + totalInternalNodes(treeâ€“>right)+1);
 }
 int Height(struct node *tree){
 	int leftheight, rightheight;
@@ -236,6 +236,16 @@ int Height(struct node *tree){
 	else{
 		leftheight=Height(tree->left);
 		rightheight=Height(tree->right);
-		if(leftheight>rightheight){
-		}
+		if(leftheight>rightheight)
+			return (leftheight + 1);
+		else
+            return (rightheight + 1);
 	}
+struct node *deleteTree(struct node *tree) {
+    if (tree != NULL) {
+        deleteTree(tree->left);
+        deleteTree(tree->right);
+        free(tree);
+    }
+    return NULL;
+}
