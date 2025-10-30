@@ -96,7 +96,7 @@ struct Node* insert(struct Node* node, int key){
 		return rightRotate(node);
 	
 	//Right Right Case
-	if(balance>-1&&key>node->right->key)
+	if(balance<-1&&key>node->right->key)
 		return leftRotate(node);
 	
 	//Left Right Case
@@ -106,7 +106,7 @@ struct Node* insert(struct Node* node, int key){
 	}
 		
 	//Right left Case
-	if(balance>-1&&key<node->right->key){
+	if(balance<-1&&key<node->right->key){
 		node->right=rightRotate(node->right);
 		return leftRotate(node);
 	}
@@ -131,8 +131,8 @@ int main(){
 	//Insert nodes into AVL tree
 	root = insert(root, 1);
 	root = insert(root, 2);
-	root = insert(root, 4);
 	root = insert(root, 5);
+	root = insert(root, 4);
 	root = insert(root, 6);
 	root = insert(root, 3);
 	
